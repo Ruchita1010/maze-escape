@@ -103,9 +103,14 @@ export class HexagonalGrid {
   }
 
   activateToxicGas(): void {
+    // review: some better method?
+    const initialRow = Math.floor(this.#rowCount / 2);
+    const initialCol = Math.floor(this.#colCount / 2);
+    // Calculate the index of the player's initial position to exclude that hexagon
+    const initialIndex = initialRow * this.#colCount + initialCol;
     const nonEdgeHexagons = this.#grid
       .flat()
-      .filter((hexagon) => !hexagon.isEdge);
+      .filter((hexagon, index) => !hexagon.isEdge && index !== initialIndex);
 
     const toxicGasContainer = new Container();
     this.#app.stage.addChild(toxicGasContainer);
