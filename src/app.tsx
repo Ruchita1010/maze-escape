@@ -13,6 +13,7 @@ export function App(context: Devvit.Context): JSX.Element {
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [escaped, setEscaped] = useState(false);
 
   const {
     data: gridConfig,
@@ -55,9 +56,12 @@ export function App(context: Devvit.Context): JSX.Element {
 
   const handleWebViewMessage = async (msg: WebViewMessage) => {
     if (msg.type === 'gameOver') {
-      console.log(`Game over! Time taken: ${msg.data.elapsedTime}`);
+      const { hasReachedExit, elapsedTime } = msg.data;
+      if (hasReachedExit) {
+        setEscaped(true);
+        setElapsedTime(elapsedTime);
+      }
       setIsGameOver(true);
-      setElapsedTime(msg.data.elapsedTime);
       setIsGameRunning(false);
     }
   };
@@ -87,13 +91,33 @@ export function App(context: Devvit.Context): JSX.Element {
   if (isGameOver) {
     return (
       <blocks>
-        <vstack alignment="center middle" grow height="100%" gap="large">
-          <text size="large">GAME OVER!</text>
-          <text size="medium">Escaped in: {elapsedTime} seconds</text>
-          <button appearance="bordered" onPress={handleGameStart}>
-            Play Again
-          </button>
-        </vstack>
+        <zstack alignment="center middle" grow backgroundColor="#010026">
+          <image
+            imageHeight={674}
+            imageWidth={512}
+            height="100%"
+            width="100%"
+            url="gameOverBg.png"
+            resizeMode="cover"
+          />
+          <vstack alignment="center" gap="small">
+            {escaped ? (
+              <>
+                <text size="large" color="#010026">
+                  YOU FOUND THE EXIT!
+                </text>
+                <text size="medium">Escaped in: {elapsedTime}s</text>
+              </>
+            ) : (
+              <text size="large">YOU DIED!</text>
+            )}
+          </vstack>
+          <vstack height="50%" alignment="center bottom">
+            <button appearance="bordered" onPress={handleGameStart}>
+              Play Again
+            </button>
+          </vstack>
+        </zstack>
       </blocks>
     );
   }
@@ -107,7 +131,7 @@ export function App(context: Devvit.Context): JSX.Element {
           imageWidth={512}
           height="100%"
           width="100%"
-          url="startScreenBg.png"
+          url="gameStartBg.png"
           resizeMode="cover"
         />
         <vstack height="40%" alignment="center bottom">

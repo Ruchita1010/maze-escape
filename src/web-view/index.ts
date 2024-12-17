@@ -65,7 +65,6 @@ window.addEventListener('message', async (event) => {
     const { message } = data;
     if (message.type === 'gameStart') {
       const { gridConfig } = message.data;
-      console.log(gridConfig);
       const rows = Number(gridConfig.rowCount);
       const cols = Number(gridConfig.colCount);
 
