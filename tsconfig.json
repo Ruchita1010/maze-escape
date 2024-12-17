@@ -1,0 +1,5 @@
+{
+  // only build references.
+  "files": [],
+  "references": [{ "path": "src" }, { "path": "src/web-view" }]
+}

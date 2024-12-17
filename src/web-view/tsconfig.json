@@ -1,0 +1,17 @@
+// TypeScript config for all web view code.
+{
+  "extends": "../../tsconfig-base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "ES2020"],
+
+    "outDir": "../../dist/web-view",
+
+    "tsBuildInfoFile": "../../dist/web-view/tsconfig.tsbuildinfo",
+
+    // turning off to avoid "undefined | number" error when accessing this.#grid
+    "noUncheckedIndexedAccess": false
+  },
+  // https://github.com/Microsoft/TypeScript/issues/25636
+  "include": ["**/*", "**/*.json"],
+  "references": [{ "path": "../shared" }]
+}
