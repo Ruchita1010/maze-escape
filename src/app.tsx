@@ -101,12 +101,21 @@ export function App(context: Devvit.Context): JSX.Element {
   // render start screen
   return (
     <blocks>
-      <vstack alignment="center middle" grow height="100%" gap="large">
-        <text size="large">Find the exit! Be fast, be careful!</text>
-        <button appearance="bordered" onPress={handleGameStart}>
-          Start Game
-        </button>
-      </vstack>
+      <zstack alignment="center middle" grow backgroundColor="#010026">
+        <image
+          imageHeight={674}
+          imageWidth={512}
+          height="100%"
+          width="100%"
+          url="startScreenBg.png"
+          resizeMode="cover"
+        />
+        <vstack height="40%" alignment="center bottom">
+          <button appearance="bordered" onPress={handleGameStart}>
+            Start Game
+          </button>
+        </vstack>
+      </zstack>
     </blocks>
   );
 }
