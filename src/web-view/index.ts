@@ -8,13 +8,14 @@ const app = new Application();
 async function initPixiJS() {
   await app.init({
     resizeTo: window,
-    background: '#011826',
+    background: '#010026',
   });
 
   document.body.appendChild(app.canvas);
 
   const assets = [
-    { alias: 'hexagon', src: 'assets/hexagon.png' },
+    { alias: 'edgeHexagon', src: 'assets/edgeHexagon.png' },
+    { alias: 'nonEdgeHexagon', src: 'assets/nonEdgeHexagon.png' },
     { alias: 'toxicGas', src: 'assets/toxicGas.png' },
     { alias: 'player', src: 'assets/player.png' },
     { alias: 'guard', src: 'assets/guard.png' },

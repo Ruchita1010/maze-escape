@@ -84,14 +84,10 @@ export class HexagonalGrid {
       const rowHexagons: Hexagon[] = [];
       for (let col = 0; col < this.#colCount; col++) {
         const hexagon = this.#createHexagon(row, col);
+        const { x, y, isEdge } = hexagon;
         // render the hexagon
-        const sprite = createSprite(
-          hexagon.x,
-          hexagon.y,
-          this.SIDE_LENGTH,
-          'hexagon',
-          2
-        );
+        const textureKey = isEdge ? 'edgeHexagon' : 'nonEdgeHexagon';
+        const sprite = createSprite(x, y, this.SIDE_LENGTH, textureKey, 2);
         hexagonContainer.addChild(sprite);
         rowHexagons.push(hexagon);
       }
@@ -122,7 +118,7 @@ export class HexagonalGrid {
       const hexagon = nonEdgeHexagons.splice(randomIndex, 1)[0]; // Remove from pool
       const { x, y, toxicGas } = hexagon;
 
-      const sprite = createSprite(x, y, this.SIDE_LENGTH, 'toxicGas');
+      const sprite = createSprite(x, y, this.SIDE_LENGTH, 'toxicGas', 2);
       sprite.visible = false;
       toxicGas.sprite = sprite;
       toxicGas.nextActivationTime = Math.random() * 1000 + 2000;

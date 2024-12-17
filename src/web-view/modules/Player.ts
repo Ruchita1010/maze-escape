@@ -29,7 +29,7 @@ export class Player {
     this.#currentCol = initialCol;
 
     const { x, y } = this.#grid.getHexagon(this.#currentRow, this.#currentCol)!;
-    this.#sprite = createSprite(x, y, grid.SIDE_LENGTH, 'player');
+    this.#sprite = createSprite(x, y, grid.SIDE_LENGTH, 'player', 1.8);
     this.#app.stage.addChild(this.#sprite);
 
     this.#setupMovementControls();
